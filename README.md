@@ -1,4 +1,4 @@
-# egg-egg-cancan
+# egg-cancan
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -7,18 +7,18 @@
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
 
-[npm-image]: https://img.shields.io/npm/v/egg-egg-cancan.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/egg-egg-cancan
-[travis-image]: https://img.shields.io/travis/eggjs/egg-egg-cancan.svg?style=flat-square
-[travis-url]: https://travis-ci.org/eggjs/egg-egg-cancan
-[codecov-image]: https://img.shields.io/codecov/c/github/eggjs/egg-egg-cancan.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/eggjs/egg-egg-cancan?branch=master
-[david-image]: https://img.shields.io/david/eggjs/egg-egg-cancan.svg?style=flat-square
-[david-url]: https://david-dm.org/eggjs/egg-egg-cancan
-[snyk-image]: https://snyk.io/test/npm/egg-egg-cancan/badge.svg?style=flat-square
-[snyk-url]: https://snyk.io/test/npm/egg-egg-cancan
-[download-image]: https://img.shields.io/npm/dm/egg-egg-cancan.svg?style=flat-square
-[download-url]: https://npmjs.org/package/egg-egg-cancan
+[npm-image]: https://img.shields.io/npm/v/egg-cancan.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/egg-cancan
+[travis-image]: https://img.shields.io/travis/eggjs/egg-cancan.svg?style=flat-square
+[travis-url]: https://travis-ci.org/eggjs/egg-cancan
+[codecov-image]: https://img.shields.io/codecov/c/github/eggjs/egg-cancan.svg?style=flat-square
+[codecov-url]: https://codecov.io/github/eggjs/egg-cancan?branch=master
+[david-image]: https://img.shields.io/david/eggjs/egg-cancan.svg?style=flat-square
+[david-url]: https://david-dm.org/eggjs/egg-cancan
+[snyk-image]: https://snyk.io/test/npm/egg-cancan/badge.svg?style=flat-square
+[snyk-url]: https://snyk.io/test/npm/egg-cancan
+[download-image]: https://img.shields.io/npm/dm/egg-cancan.svg?style=flat-square
+[download-url]: https://npmjs.org/package/egg-cancan
 
 <!--
 Description here.
