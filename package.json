@@ -48,12 +48,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eggjs/egg-egg-cancan.git"
+    "url": "git+https://github.com/eggjs/egg-cancan.git"
   },
   "bugs": {
-    "url": "https://github.com/eggjs/egg/issues"
+    "url": "https://github.com/eggjs/egg-cancan/issues"
   },
-  "homepage": "https://github.com/eggjs/egg-egg-cancan#readme",
+  "homepage": "https://github.com/eggjs/egg-cancan#readme",
   "author": "Jason Lee",
   "license": "MIT"
 }
