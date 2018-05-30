@@ -1,4 +1,10 @@
 
+0.6.0 / 2018-05-30
+==================
+
+**others**
+  * [[`52d74d8`](http://github.com/eggjs/egg-cancan/commit/52d74d835f07a0de3b2790227b1e2c4b46bcccb7)] - Add cancan.cache config, to enable/disable cache, default: false. (Jason Lee <<huacnlee@gmail.com>>)
+
 0.5.0 / 2018-05-30
 ==================
 
