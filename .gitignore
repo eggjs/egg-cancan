@@ -7,4 +7,5 @@ run/
 .DS_Store
 yarn-error.log
 *.swp
+yarn.lock
 
