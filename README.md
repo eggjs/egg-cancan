@@ -68,7 +68,7 @@ class Ability extends BaseAbility {
     super(ctx, user)
   }
 
-  async can(action, obj, options = {}) {
+  async rules(action, obj, options = {}) {
     const { type } = options;
 
     if (type === 'topic') {

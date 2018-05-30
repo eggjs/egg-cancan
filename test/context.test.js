@@ -23,7 +23,7 @@ describe('test/context.test.js', () => {
     });
 
     it('should alias action work', async () => {
-      mm(ctx.ability, 'can', async (action, obj, options) => {
+      mm(ctx.ability, 'rules', async (action, obj, options) => {
         if (action === 'read') return 'read';
         if (action === 'update') return 'update';
         if (action === 'delete') return 'delete';

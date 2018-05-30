@@ -21,34 +21,7 @@ module.exports = {
    * @return {Boolean} true | false
    */
   async can(action, obj, options = {}) {
-    let type = options.type;
-    // For egg-sequelize Model instance
-    if (obj && obj.Model) {
-      type = obj.Model.name;
-    }
-
-    if (!type) {
-      throw new Error('Fail get type from obj argument, please present its by options, for example: ctx.can(\'read\', topic, { type: \'topic\' })');
-    }
-
-    switch (action) {
-      case 'show':
-        action = 'read';
-        break;
-      case 'new':
-        action = 'create';
-        break;
-      case 'edit':
-        action = 'update';
-        break;
-      case 'destroy':
-        action = 'delete';
-        break;
-      default:
-        break;
-    }
-
-    return await this.ability.can(action, obj, { type });
+    return await this.ability.can(action, obj, options);
   },
 
   /**
