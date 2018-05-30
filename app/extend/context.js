@@ -48,7 +48,7 @@ module.exports = {
         break;
     }
 
-    return await this.ability.can(action, type, obj);
+    return await this.ability.can(action, obj, { type });
   },
 
   /**

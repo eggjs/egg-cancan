@@ -68,7 +68,9 @@ class Ability extends BaseAbility {
     super(ctx, user)
   }
 
-  async can(action, type, obj) {
+  async can(action, obj, options = {}) {
+    const { type } = options;
+
     if (type === 'topic') {
       if (action === 'update') {
         return await this.canUpdateTopic(obj);
