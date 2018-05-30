@@ -2,6 +2,8 @@
 
 [Cancancan](https://github.com/CanCanCommunity/cancancan) like authorization plugin for Egg.js
 
+> This plugin is our best practice from we developing [yuque.com](https://yuque.com).
+
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][codecov-image]][codecov-url]
@@ -148,6 +150,59 @@ exports.middleware = [
   'handleAuthorize',
   ...
 ];
+```
+
+## Testing your abilities
+
+When you wrote `app/ability.js`, you may need to write test case.
+
+- egg-sequelize
+- factory-girl-sequelize
+- power-assert
+
+Create a test file: `test/ability.test.js`
+
+```js
+'use strict';
+
+describe('Ability', () => {
+  let allow, user, ability, anonymousAbility;
+
+  beforeAll(async () => {
+    user = await create('user');
+    ability = new app.Ability(ctx, user);
+  });
+
+  describe('Topic', () => {
+    describe('Anonymous', () => {
+      it('should work', async () => {
+        const topic = await create('topic');
+        allow = await ability.can('create', topic);
+        assert.equal(true, allow);
+        allow = await ability.can('read', topic);
+        assert.equal(true, allow);
+        allow = await ability.can('update', topic);
+        assert.equal(false, allow);
+        allow = await ability.can('destroy', topic);
+        assert.equal(false, allow);
+      });
+    });
+
+    describe('Author', () => {
+      it('should work', async () => {
+        const topic = await create('topic', { user_id: user.id });
+        allow = await ability.can('create', topic);
+        assert.equal(true, allow);
+        allow = await ability.can('read', topic);
+        assert.equal(true, allow);
+        allow = await ability.can('update', topic);
+        assert.equal(true, allow);
+        allow = await ability.can('destroy', topic);
+        assert.equal(true, allow);
+      });
+    })
+  });
+});
 ```
 
 ## License
