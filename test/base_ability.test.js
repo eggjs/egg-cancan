@@ -2,7 +2,7 @@
 
 const { BaseAbility } = require('../');
 
-describe('test/context.test.js', () => {
+describe('test/base_ability.test.js', () => {
   class MyAbility extends BaseAbility {
     async rules(action, obj, options = {}) {
       return { action: action, obj: obj, type: options.type };
@@ -27,8 +27,30 @@ describe('test/context.test.js', () => {
     it('should work', () => {
       assert.equal(user, ability.user);
       assert.equal(ctx, ability.ctx);
+      assert.deepEqual({}, ability._cache);
       assert.equal(null, anonymousAbility.user);
       assert.equal(ctx, anonymousAbility.ctx);
+    });
+  });
+
+  describe('Contxt Cache', () => {
+    it('should _cacheKey work', function* () {
+      assert.equal('read-{}-{}', ability._cacheKey('read', {}, {}));
+      assert.equal('read-{"id":1}-{"type":"foo"}', ability._cacheKey('read', { id: 1 }, { type: 'foo' }));
+      assert.equal('update-{"id":1,"name":"aaa"}-{"type":"foo"}', ability._cacheKey('update', { id: 1, name: 'aaa' }, { type: 'foo' }));
+    });
+
+    it('should work', async () => {
+      res = await ability.can('update', { id: 1 }, { type: 'user' });
+      const cacheVal = ability._cache['update-{"id":1}-{"type":"user"}'];
+      assert.equal(res, cacheVal);
+
+      ability._cache['update-{"id":1}-{"type":"user"}'] = 'foobar';
+      res = await ability.can('update', { id: 1 }, { type: 'user' });
+      assert.equal('foobar', res);
+
+      res = await ability.can('read', { id: 1 }, { type: 'user' });
+      assert.notEqual('foobar', res);
     });
   });
 
