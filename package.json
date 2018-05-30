@@ -1,6 +1,6 @@
 {
   "name": "egg-cancan",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "cancancan like authorization plugin for Egg.js",
   "eggPlugin": {
     "name": "cancan"
