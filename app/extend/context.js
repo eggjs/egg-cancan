@@ -27,6 +27,10 @@ module.exports = {
       type = obj.Model.name;
     }
 
+    if (!type) {
+      throw new Error('Fail get type from obj argument, please present its by options, for example: ctx.can(\'read\', topic, { type: \'topic\' })');
+    }
+
     switch (action) {
       case 'show':
         action = 'read';

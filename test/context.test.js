@@ -1,6 +1,13 @@
 'use strict';
 
 describe('test/context.test.js', () => {
+  // egg-sequelize model instance
+  const modelInstance = {
+    Model: { name: 'user' },
+    id: '123',
+    name: 'Jason Lee'
+  };
+
   describe('.ability', () => {
     it('should work', async () => {
       assert.ok(ctx.ability);
@@ -11,7 +18,7 @@ describe('test/context.test.js', () => {
   describe('.can', () => {
     it('should work', async () => {
       assert.ok(ctx.can);
-      assert.equal(true, await ctx.can('read', null));
+      assert.equal(true, await ctx.can('read', null, { type: 'foo' }));
       assert.equal(true, await ctx.can('read', {}, { type: 'User' }));
     });
 
@@ -21,12 +28,20 @@ describe('test/context.test.js', () => {
         if (action === 'update') return 'update';
         if (action === 'delete') return 'delete';
       });
-      assert.equal('read', await ctx.can('read', null));
-      assert.equal('read', await ctx.can('show', null));
-      assert.equal('update', await ctx.can('update', null));
-      assert.equal('update', await ctx.can('edit', null));
-      assert.equal('delete', await ctx.can('delete', null));
-      assert.equal('delete', await ctx.can('destroy', null));
+      assert.equal('read', await ctx.can('read', modelInstance));
+      assert.equal('read', await ctx.can('show', modelInstance));
+      assert.equal('update', await ctx.can('update', modelInstance));
+      assert.equal('update', await ctx.can('edit', modelInstance));
+      assert.equal('delete', await ctx.can('delete', modelInstance));
+      assert.equal('delete', await ctx.can('destroy', modelInstance));
+    });
+
+    it('should throw error when type not exist', async () => {
+      try {
+        await ctx.can('read', { id: 1 });
+      } catch (e) {
+        assert.equal(`Fail get type from obj argument, please present its by options, for example: ctx.can('read', topic, { type: 'topic' })`, e.message);
+      }
     });
   });
 
@@ -34,11 +49,11 @@ describe('test/context.test.js', () => {
     it('should work', async () => {
       assert.ok(ctx.authorize);
 
-      await ctx.authorize('read', null)
+      await ctx.authorize('read', modelInstance)
 
       mm(ctx, 'can', async () => { return false; });
       try {
-        await ctx.authorize('read', null)
+        await ctx.authorize('read', modelInstance)
       } catch (e) {
         assert.equal('CancanAccessDenied', e.name);
       }
