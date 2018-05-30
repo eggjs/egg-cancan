@@ -49,6 +49,10 @@ exports.cancan = {
 ```js
 // {app_root}/config/config.default.js
 exports.cancan = {
+// method name of current logined user instance
+  contextUserMethod: 'user',
+  // Enable disable Ability check result cache
+  cache: false,
 };
 ```
 
@@ -104,6 +108,46 @@ class Ability extends BaseAbility {
 | update | edit, update |
 | create | new, create |
 | delete | destroy, delete |
+
+### Cache check result in same Context
+
+Ability support cache Ability check result in ctx, you can enable it by change `config/config.default.js`
+
+```js
+exports.cancan = {
+  // defalut is disabled
+  cache: true,
+};
+```
+
+When you enable that, you call `can` method will hit cache:
+
+```
+ctx.can('read', user);
+- check cache in ability._cache
+    found -> return
+  not exist ->
+    execute `rules` to real check
+    write to _cache
+    return
+```
+
+Its use `action + obj + options` stringify as default cache key:
+
+```bash
+ability.cacheKey('read', { id: 1 }, { type: 'user' });
+=> 'read-{id:1}-{type:"user"}'
+```
+
+You can rewrite it by override the `cacheKey` method, for example:
+
+```js
+class Ability extends BaseAbility {
+  cacheKey(action, obj, options) {
+    return [action, obj.cacheKey, options.type].join(':');
+  }
+}
+```
 
 ## Check Abilities
 

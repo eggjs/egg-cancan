@@ -34,10 +34,11 @@ describe('test/base_ability.test.js', () => {
   });
 
   describe('Contxt Cache', () => {
-    it('should _cacheKey work', function* () {
-      assert.equal('read-{}-{}', ability._cacheKey('read', {}, {}));
-      assert.equal('read-{"id":1}-{"type":"foo"}', ability._cacheKey('read', { id: 1 }, { type: 'foo' }));
-      assert.equal('update-{"id":1,"name":"aaa"}-{"type":"foo"}', ability._cacheKey('update', { id: 1, name: 'aaa' }, { type: 'foo' }));
+    it('should cacheKey work', function* () {
+      assert.equal('read-{}-{}', ability.cacheKey('read', {}, {}));
+      assert.equal('read-{"id":1}-{"type":"foo"}', ability.cacheKey('read', { id: 1 }, { type: 'foo' }));
+      assert.equal('read-{"id":1,"user":{"name":"foo"}}-{"type":"foo"}', ability.cacheKey('read', { id: 1, user: { name: 'foo' } }, { type: 'foo' }));
+      assert.equal('update-{"id":1,"name":"aaa"}-{"type":"foo"}', ability.cacheKey('update', { id: 1, name: 'aaa' }, { type: 'foo' }));
     });
 
     it('should work', async () => {
@@ -51,6 +52,23 @@ describe('test/base_ability.test.js', () => {
 
       res = await ability.can('read', { id: 1 }, { type: 'user' });
       assert.notEqual('foobar', res);
+    });
+
+    it('should disable cache', async () => {
+      const obj = { id: 1 };
+      const options = { type: 'user' };
+
+      ability._cache['read-{"id":1}-{"type":"user"}'] = 'foobar';
+      res = await ability.can('read', obj, options);
+      assert.equal('foobar', res);
+
+      mm(ability, '_cacheEnable', false);
+
+      res = await ability.can('read', obj, options);
+      assert.notEqual('foobar', res);
+      assert.equal('read', res.action);
+      assert.equal(obj, res.obj);
+      assert.equal(options.type, res.type);
     });
   });
 
