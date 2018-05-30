@@ -16,10 +16,21 @@ describe('test/context.test.js', () => {
     name: 'Jason Lee'
   };
 
-  let ability, res;
+  let user, ability, anonymousAbility, res;
   beforeEach(async () => {
-    ability = new MyAbility(ctx, { id: 1 });
+    user = { id: 1 };
+    ability = new MyAbility(ctx, user);
+    anonymousAbility = new MyAbility(ctx, null);
   })
+
+  describe('Base', () => {
+    it('should work', () => {
+      assert.equal(user, ability.user);
+      assert.equal(ctx, ability.ctx);
+      assert.equal(null, anonymousAbility.user);
+      assert.equal(ctx, anonymousAbility.ctx);
+    });
+  });
 
   describe('Action alias', () => {
     it('should work', async () => {
