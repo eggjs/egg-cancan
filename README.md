@@ -96,6 +96,15 @@ class Ability extends BaseAbility {
 }
 ```
 
+### Action alias
+
+| Action | Alias |
+| ------ | ----- |
+| read   | show, read |
+| update | edit, update |
+| create | new, create |
+| delete | destroy, delete |
+
 ## Check Abilities
 
 The `ctx.can` method:
