@@ -2,8 +2,8 @@
 
 const ABILITY = Symbol('Context#ability');
 
-class CancanAccessDenied extends Error {
-  get name() { return 'CancanAccessDenied'; }
+class CanCanAccessDenied extends Error {
+  get name() { return 'CanCanAccessDenied'; }
 }
 
 /**
@@ -25,7 +25,7 @@ module.exports = {
   },
 
   /**
-   * Authorize Ability, if not will throw CancanAccessDenied error
+   * Authorize Ability, if not will throw CanCanAccessDenied error
    * @param {String} action create|update|read|destroy
    * @param {String} obj Model instance or other data
    * @param {Object} options options
@@ -33,7 +33,7 @@ module.exports = {
    */
   async authorize(action, obj, options = {}) {
     const allow = await this.can(action, obj, options);
-    if (!allow) throw new CancanAccessDenied('Access denied');
+    if (!allow) throw new CanCanAccessDenied('Access denied');
   },
 
   /**

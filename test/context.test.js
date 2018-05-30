@@ -55,7 +55,7 @@ describe('test/context.test.js', () => {
       try {
         await ctx.authorize('read', modelInstance)
       } catch (e) {
-        assert.equal('CancanAccessDenied', e.name);
+        assert.equal('CanCanAccessDenied', e.name);
       }
 
       mm(ctx, 'can', async (action, obj, options) => {
@@ -70,7 +70,7 @@ describe('test/context.test.js', () => {
       try {
         await ctx.authorize('read', { id: 1 }, { type: 'user1' })
       } catch (e) {
-        assert.equal('CancanAccessDenied', e.name);
+        assert.equal('CanCanAccessDenied', e.name);
       }
     });
   });

@@ -127,12 +127,12 @@ The `ctx.authorize` method:
 ```js
 await ctx.authorize('read', topic);
 // when permission is ok, not happend
-// when no permission, will throw CancanAccessDenied
+// when no permission, will throw CanCanAccessDenied
 ```
 
 ## Handle Unauthorized Access
 
-If the `ctx.authorize` check fails, a `CanCanAccessDenied`error will be throw. You can catch this and modify its behavior:
+If the `ctx.authorize` check fails, a `CanCanAccessDenied` error will be throw. You can catch this and modify its behavior:
 
 Add new file: `app/middleware/handle_authorize.js`
 
@@ -142,7 +142,7 @@ module.exports = () => {
     try {
       await next();
     } catch (e) {
-      if (e.name === 'CancanAccessDenied') {
+      if (e.name === 'CanCanAccessDenied') {
         this.status = 403;
         this.body = 'Access Denied';
       } else {
