@@ -57,6 +57,21 @@ describe('test/context.test.js', () => {
       } catch (e) {
         assert.equal('CancanAccessDenied', e.name);
       }
+
+      mm(ctx, 'can', async (action, obj, options) => {
+        if (action === 'read' && obj.id === 1 && options.type === 'user') {
+          return true;
+        }
+        return false;
+      });
+
+      await ctx.authorize('read', { id: 1 }, { type: 'user' });
+
+      try {
+        await ctx.authorize('read', { id: 1 }, { type: 'user1' })
+      } catch (e) {
+        assert.equal('CancanAccessDenied', e.name);
+      }
     });
   });
 

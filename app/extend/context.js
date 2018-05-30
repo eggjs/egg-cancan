@@ -32,7 +32,7 @@ module.exports = {
    * @param {Object} options.type name of ability, etc: topic|doc, if **obj** is a Sequelize instance, will use obj.Model.name by default
    */
   async authorize(action, obj, options = {}) {
-    const allow = await this.can(action, obj, options = {});
+    const allow = await this.can(action, obj, options);
     if (!allow) throw new CancanAccessDenied('Access denied');
   },
 
