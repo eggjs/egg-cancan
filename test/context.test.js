@@ -19,6 +19,8 @@ describe('test/context.test.js', () => {
     it('should work', async () => {
       assert.ok(ctx.can);
       assert.equal(true, await ctx.can('read', {}, { type: 'User' }));
+      assert.equal(false, await ctx.can('read', null));
+      assert.equal(false, await ctx.can('read'));
     });
 
     it('should alias action work', async () => {
