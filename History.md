@@ -1,4 +1,10 @@
 
+1.1.0 / 2020-07-17
+==================
+
+**features**
+  * [[`30365d7`](http://github.com/eggjs/egg-cancan/commit/30365d79a61b77ccf59c7eec545b5b2de421d634)] - feat: log accept more infos (#3) (Yiyu He <<dead_horse@qq.com>>)
+
 1.0.0 / 2020-07-16
 ==================
 
