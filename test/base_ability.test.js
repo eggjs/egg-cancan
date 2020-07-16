@@ -31,6 +31,39 @@ describe('test/base_ability.test.js', () => {
       assert.deepEqual({}, ability._cache);
       assert.equal(null, anonymousAbility.user);
       assert.equal(ctx, anonymousAbility.ctx);
+      assert(ability.CanCanAccessDenied.name === 'CanCanAccessDenied');
+      assert(ability.CanCanAccessDenied === anonymousAbility.CanCanAccessDenied);
+    });
+  });
+
+  describe('authorize', () => {
+    it('should work', async () => {
+      mm(ability, 'rules', async action => {
+        if (action === 'read') return true;
+        return false;
+      });
+
+      await ability.authorize('read', modelInstance);
+      await assert.rejects(async () => {
+        await ability.authorize('update', modelInstance);
+      }, err => {
+        assert(err.name === 'CanCanAccessDenied');
+        return true;
+      });
+    });
+  });
+
+  describe('abilities', () => {
+    it('should work', async () => {
+      mm(ability, 'rules', async action => {
+        if (action === 'read') return true;
+        return false;
+      });
+
+      const res = await ability.abilities(modelInstance);
+      assert(res.read === true);
+      assert(res.update === false);
+      assert(res.delete === false);
     });
   });
 
@@ -95,6 +128,9 @@ describe('test/base_ability.test.js', () => {
 
       res = await ability.can('destroy', modelInstance);
       assert.equal('delete', res.action);
+
+      res = await ability.can('new', modelInstance);
+      assert.equal('create', res.action);
     });
   });
 
