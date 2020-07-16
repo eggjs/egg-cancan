@@ -44,18 +44,11 @@ describe('test/context.test.js', () => {
       });
     });
 
-    it('should throw error when action or target not exist', async () => {
-      await assert.rejects(async () => {
-        await ctx.can('read');
-      }, err => {
-        assert.equal(`action and object required, for example: ctx.can('read', doc)`, err.message);
-        return true;
-      });
-
+    it('should throw error when action not exist', async () => {
       await assert.rejects(async () => {
         await ctx.can();
       }, err => {
-        assert.equal(`action and object required, for example: ctx.can('read', doc)`, err.message);
+        assert.equal(`action required, for example: ctx.can('read', doc)`, err.message);
         return true;
       });
     });
@@ -96,10 +89,16 @@ describe('test/context.test.js', () => {
     it('should work', async () => {
       assert.ok(ctx.abilities);
       mm(ctx.ability, 'can', async (action, obj, options) => {
+        if (obj === null) return false;
         if (action === 'read') return true;
         if (options && options.type === 'comment') return true;
         return false;
       });
+
+      abilities = await ctx.abilities(null);
+      assert.equal(false, abilities.read);
+      assert.equal(false, abilities.update);
+      assert.equal(false, abilities.delete);
 
       abilities = await ctx.abilities({});
       assert.equal(true, abilities.read);
