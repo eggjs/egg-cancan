@@ -16,6 +16,7 @@ module.exports = {
    * @param {Object} options.type name of ability, etc: topic|doc, if **obj** is a Sequelize instance, will use obj.Model.name by default
    * @return {Boolean} true | false
    */
+
   async can(...args) {
     return await this.ability.can(...args);
   },
@@ -27,6 +28,7 @@ module.exports = {
    * @param {Object} options options
    * @param {Object} options.type name of ability, etc: topic|doc, if **obj** is a Sequelize instance, will use obj.Model.name by default
    */
+
   async authorize(...args) {
     await this.ability.authorize(...args);
   },
@@ -38,6 +40,7 @@ module.exports = {
    * @param {String} options.type name of ability, etc: topic|doc
    * @return {Object} { read: true, update: true, delete: false }
    */
+
   async abilities(...args) {
     return await this.ability.abilities(...args);
   },
@@ -45,6 +48,7 @@ module.exports = {
   /**
    * Ability for currentUser
    */
+
   get ability() {
     if (this[ABILITY]) { return this[ABILITY]; }
 

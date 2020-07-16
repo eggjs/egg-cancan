@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 const { BaseAbility } = require('../');
 
 describe('test/base_ability.test.js', () => {

@@ -215,7 +215,6 @@ When you wrote `app/ability.js`, you may need to write test case.
 
 - egg-sequelize
 - factory-girl-sequelize
-- power-assert
 
 Create a test file: `test/ability.test.js`
 

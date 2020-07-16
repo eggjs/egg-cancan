@@ -1,5 +1,7 @@
 'use strict';
 
+const assert = require('assert');
+
 describe('test/context.test.js', () => {
   // egg-sequelize model instance
   const modelInstance = {
