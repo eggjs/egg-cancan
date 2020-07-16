@@ -9,4 +9,6 @@ exports.cancan = {
   contextUserMethod: 'user',
   // Enable disable Ability check result cache
   cache: false,
+  // Enable log for every check
+  log: false,
 };

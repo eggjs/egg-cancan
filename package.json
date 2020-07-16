@@ -13,15 +13,14 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "autod": "^3.0.0",
-    "autod-egg": "^1.0.0",
-    "egg": "^2.0.0",
-    "egg-bin": "^4.3.0",
-    "egg-ci": "^1.8.0",
-    "egg-mock": "^3.13.0",
-    "power-assert": "^1.5.0",
-    "eslint": "^4.11.0",
-    "eslint-config-egg": "^5.1.0",
+    "autod": "^3.1.0",
+    "autod-egg": "^1.1.0",
+    "egg": "^2.27.0",
+    "egg-bin": "^4.15.0",
+    "egg-ci": "^1.15.0",
+    "egg-mock": "^4.0.0",
+    "eslint": "^7.4.0",
+    "eslint-config-egg": "^8.0.1",
     "webstorm-disable-index": "^1.2.0"
   },
   "engines": {
@@ -44,7 +43,7 @@
     "app.js"
   ],
   "ci": {
-    "version": "8, 9"
+    "version": "10, 12, 14"
   },
   "repository": {
     "type": "git",

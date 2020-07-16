@@ -1,7 +1,6 @@
 'use strict';
 
 global.mm = require('egg-mock');
-global.assert = require('power-assert');
 
 const app = mm.app({ baseDir: 'apps/dummy', plugin: 'dummy' });
 

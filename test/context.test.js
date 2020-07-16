@@ -1,5 +1,7 @@
 'use strict';
 
+const assert = require('assert');
+
 describe('test/context.test.js', () => {
   // egg-sequelize model instance
   const modelInstance = {
@@ -18,8 +20,9 @@ describe('test/context.test.js', () => {
   describe('.can', () => {
     it('should work', async () => {
       assert.ok(ctx.can);
-      assert.equal(true, await ctx.can('read', null, { type: 'foo' }));
       assert.equal(true, await ctx.can('read', {}, { type: 'User' }));
+      assert.equal(false, await ctx.can('read', null));
+      assert.equal(false, await ctx.can('read'));
     });
 
     it('should alias action work', async () => {
@@ -37,11 +40,21 @@ describe('test/context.test.js', () => {
     });
 
     it('should throw error when type not exist', async () => {
-      try {
+      await assert.rejects(async () => {
         await ctx.can('read', { id: 1 });
-      } catch (e) {
-        assert.equal(`Fail get type from obj argument, please present its by options, for example: ctx.can('read', topic, { type: 'topic' })`, e.message);
-      }
+      }, err => {
+        assert.equal(`Fail get type from obj argument, please present its by options, for example: ctx.can('read', topic, { type: 'topic' })`, err.message);
+        return true;
+      });
+    });
+
+    it('should throw error when action not exist', async () => {
+      await assert.rejects(async () => {
+        await ctx.can();
+      }, err => {
+        assert.equal(`action required, for example: ctx.can('read', doc)`, err.message);
+        return true;
+      });
     });
   });
 
@@ -79,14 +92,14 @@ describe('test/context.test.js', () => {
     let abilities;
     it('should work', async () => {
       assert.ok(ctx.abilities);
-      mm(ctx, 'can', async (action, obj, options) => {
+      mm(ctx.ability, 'can', async (action, obj, options) => {
         if (obj === null) return false;
         if (action === 'read') return true;
-        if (options.type === 'comment') return true;
+        if (options && options.type === 'comment') return true;
         return false;
       });
 
-      abilities= await ctx.abilities(null);
+      abilities = await ctx.abilities(null);
       assert.equal(false, abilities.read);
       assert.equal(false, abilities.update);
       assert.equal(false, abilities.delete);
