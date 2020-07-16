@@ -1,4 +1,10 @@
 
+1.0.0 / 2020-07-16
+==================
+
+**others**
+  * [[`539f907`](http://github.com/eggjs/egg-cancan/commit/539f90764e79376f7abdb63221ca4b762d84bce3)] - reactor: rewrite base ability (Yiyu He <<dead_horse@qq.com>>)
+
 0.6.0 / 2018-05-30
 ==================
 
