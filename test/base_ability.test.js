@@ -106,4 +106,20 @@ describe('test/base_ability.test.js', () => {
       assert.equal('aaa', res.type);
     });
   });
+
+  describe('log', () => {
+    beforeEach(() => {
+      mm(app.config.cancan, 'log', true);
+      mm(app.config.cancan, 'cache', true);
+      ability = new BaseAbility(ctx, user);
+    });
+
+    it('should work', async () => {
+      app.mockLog();
+      res = await ability.can('read', modelInstance);
+      app.expectLog('[cancan]can read user result true, miss cache');
+      res = await ability.can('read', modelInstance);
+      app.expectLog('[cancan]can read user result true, hit cache');
+    });
+  });
 });

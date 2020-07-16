@@ -18,7 +18,6 @@ describe('test/context.test.js', () => {
   describe('.can', () => {
     it('should work', async () => {
       assert.ok(ctx.can);
-      assert.equal(true, await ctx.can('read', null, { type: 'foo' }));
       assert.equal(true, await ctx.can('read', {}, { type: 'User' }));
     });
 
@@ -37,11 +36,28 @@ describe('test/context.test.js', () => {
     });
 
     it('should throw error when type not exist', async () => {
-      try {
+      await assert.rejects(async () => {
         await ctx.can('read', { id: 1 });
-      } catch (e) {
-        assert.equal(`Fail get type from obj argument, please present its by options, for example: ctx.can('read', topic, { type: 'topic' })`, e.message);
-      }
+      }, err => {
+        assert.equal(`Fail get type from obj argument, please present its by options, for example: ctx.can('read', topic, { type: 'topic' })`, err.message);
+        return true;
+      });
+    });
+
+    it('should throw error when action or target not exist', async () => {
+      await assert.rejects(async () => {
+        await ctx.can('read');
+      }, err => {
+        assert.equal(`action and object required, for example: ctx.can('read', doc)`, err.message);
+        return true;
+      });
+
+      await assert.rejects(async () => {
+        await ctx.can();
+      }, err => {
+        assert.equal(`action and object required, for example: ctx.can('read', doc)`, err.message);
+        return true;
+      });
     });
   });
 

@@ -53,6 +53,8 @@ exports.cancan = {
   contextUserMethod: 'user',
   // Enable disable Ability check result cache
   cache: false,
+  // Enable log authorize check result
+  log: false,
 };
 ```
 
