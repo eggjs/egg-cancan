@@ -95,17 +95,11 @@ describe('test/context.test.js', () => {
     let abilities;
     it('should work', async () => {
       assert.ok(ctx.abilities);
-      mm(ctx, 'can', async (action, obj, options) => {
-        if (obj === null) return false;
+      mm(ctx.ability, 'can', async (action, obj, options) => {
         if (action === 'read') return true;
-        if (options.type === 'comment') return true;
+        if (options && options.type === 'comment') return true;
         return false;
       });
-
-      abilities= await ctx.abilities(null);
-      assert.equal(false, abilities.read);
-      assert.equal(false, abilities.update);
-      assert.equal(false, abilities.delete);
 
       abilities = await ctx.abilities({});
       assert.equal(true, abilities.read);

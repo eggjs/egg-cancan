@@ -2,10 +2,6 @@
 
 const ABILITY = Symbol('Context#ability');
 
-class CanCanAccessDenied extends Error {
-  get name() { return 'CanCanAccessDenied'; }
-}
-
 /**
  * Context::Ability
  *
@@ -20,8 +16,8 @@ module.exports = {
    * @param {Object} options.type name of ability, etc: topic|doc, if **obj** is a Sequelize instance, will use obj.Model.name by default
    * @return {Boolean} true | false
    */
-  async can(action, obj, options = {}) {
-    return await this.ability.can(action, obj, options);
+  async can(...args) {
+    return await this.ability.can(...args);
   },
 
   /**
@@ -31,9 +27,8 @@ module.exports = {
    * @param {Object} options options
    * @param {Object} options.type name of ability, etc: topic|doc, if **obj** is a Sequelize instance, will use obj.Model.name by default
    */
-  async authorize(action, obj, options = {}) {
-    const allow = await this.can(action, obj, options);
-    if (!allow) throw new CanCanAccessDenied('Access denied');
+  async authorize(...args) {
+    await this.ability.authorize(...args);
   },
 
   /**
@@ -43,16 +38,8 @@ module.exports = {
    * @param {String} options.type name of ability, etc: topic|doc
    * @return {Object} { read: true, update: true, delete: false }
    */
-  async abilities(obj, options = {}) {
-    const [ read, update, _delete ] = await Promise.all([
-      this.can('read', obj, options),
-      this.can('update', obj, options),
-      this.can('delete', obj, options),
-    ]);
-
-    const abilities = { read, update, delete: _delete };
-
-    return abilities;
+  async abilities(...args) {
+    return await this.ability.abilities(...args);
   },
 
   /**
