@@ -1,4 +1,10 @@
 
+1.2.0 / 2022-01-25
+==================
+
+**features**
+  * [[`3051860`](http://github.com/eggjs/egg-cancan/commit/30518602951e5e2a32f7a9667c25e8fb12d347eb)] - feat: extend authorize error properties (#4) (Yiyu He <<dead_horse@qq.com>>)
+
 1.1.0 / 2020-07-17
 ==================
 
