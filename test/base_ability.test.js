@@ -48,6 +48,9 @@ describe('test/base_ability.test.js', () => {
         await ability.authorize('update', modelInstance);
       }, err => {
         assert(err.name === 'CanCanAccessDenied');
+        assert(err.action === 'update');
+        assert(err.type === 'user');
+        assert(err.object === modelInstance);
         return true;
       });
     });
